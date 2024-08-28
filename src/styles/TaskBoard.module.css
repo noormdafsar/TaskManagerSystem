@@ -1,0 +1,90 @@
+.taskBoard {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #f4f5f7;
+    min-height: 100vh;
+  }
+  
+  .taskColumns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .taskColumn {
+    flex: 1;
+    background-color: #ebecf0;
+    border-radius: 3px;
+    padding: 10px;
+    margin: 0 10px;
+    max-width: 300px;
+  }
+  
+  .taskColumn h2 {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #5e6c84;
+  }
+  
+  .taskCard {
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(9,30,66,.25);
+    padding: 10px;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  
+  .taskCard h3 {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .taskCard p {
+    font-size: 12px;
+    color: #5e6c84;
+    margin-bottom: 5px;
+  }
+  
+  .taskCard button {
+    background-color: #0052cc;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  .createTaskForm {
+    margin-top: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 3px;
+  }
+  
+  .createTaskForm h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .createTaskForm input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #dfe1e6;
+    border-radius: 3px;
+  }
+  
+  .createTaskForm button {
+    background-color: #0052cc;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 15px 50px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
