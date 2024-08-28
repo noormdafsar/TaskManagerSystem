@@ -1,48 +1,73 @@
-// taskBoard.tsx
-
 import React, { useState, useEffect } from 'react';
-import Task from '@/model/Task';
-import { getActiveTasks, getCompletedTasks, completeTask, createTask, updateTask, deleteTask } from '@/modules/taskManager';
-import styles from '@/styles/TaskBoard.module.css';
+import Task from '../model/Task';
+import { getActiveTasks, getCompletedTasks, completeTask, createTask, updateTask, deleteTask } from '../modules/taskManager';
+import styles from '../styles/TaskBoard.module.css';
+
+interface NewTask {
+  title: string;
+  description: string;
+  persona: string;
+  group: number;
+}
 
 const TaskBoard: React.FC = () => {
   const [todoTasks, setTodoTasks] = useState<Task[]>([]);
   const [inProgressTasks, setInProgressTasks] = useState<Task[]>([]);
   const [completedTasks, setCompletedTasks] = useState<Task[]>([]);
-  const [newTask, setNewTask] = useState({ title: '', description: '', persona: 'Intern', group: 1 });
+  const [newTask, setNewTask] = useState<NewTask>({ title: '', description: '', persona: 'Intern', group: 1 });
 
   useEffect(() => {
     fetchTasks();
   }, []);
 
   const fetchTasks = async () => {
-    const active = await getActiveTasks();
-    const completed = await getCompletedTasks();
-    setTodoTasks(active.filter(task => task.group === 1));
-    setInProgressTasks(active.filter(task => task.group > 1 && !task.completed));
-    setCompletedTasks(completed);
+    try {
+      const active = await getActiveTasks();
+      const completed = await getCompletedTasks();
+      setTodoTasks(active.filter(task => task.group === 1));
+      setInProgressTasks(active.filter(task => task.group > 1 && !task.completed));
+      setCompletedTasks(completed);
+    } catch (error) {
+      console.error('Error fetching tasks:', error);
+    }
   };
 
   const handleCompleteTask = async (taskTitle: string) => {
-    await completeTask(taskTitle);
-    fetchTasks();
+    try {
+      await completeTask(taskTitle);
+      fetchTasks();
+    } catch (error) {
+      console.error('Error completing task:', error);
+    }
   };
 
   const handleMoveToProgress = async (taskId: number) => {
-    await updateTask(taskId, { group: 2 });
-    fetchTasks();
+    try {
+      await updateTask(taskId, { group: 2 });
+      fetchTasks();
+    } catch (error) {
+      console.error('Error moving task to progress:', error);
+    }
   };
 
-  const handleCreateTask = async (e: React.FormEvent) => {
+  const handleCreateTask = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await createTask(newTask.title, newTask.description, newTask.persona, newTask.group);
-    setNewTask({ title: '', description: '', persona: 'Intern', group: 1 });
-    fetchTasks();
+    try {
+      await createTask(newTask.title, newTask.description, newTask.persona, newTask.group);
+      setNewTask({ title: '', description: '', persona: 'Intern', group: 1 });
+      fetchTasks();
+    } catch (error) {
+      console.error('Error creating task:', error);
+    }
   };
 
   const handleDeleteTask = async (taskId: number) => {
-    await deleteTask(taskId);
-    fetchTasks();
+    try {
+      await deleteTask(taskId);
+      fetchTasks();
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
   };
 
   const renderTaskList = (tasks: Task[], status: string) => (
