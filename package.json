@@ -3,6 +3,9 @@
     "next": "^14.2.7",
     "react-beautiful-dnd": "^13.1.1"
   },
+  "scripts": {
+    "dev": "next dev"
+  },
   "devDependencies": {
     "@types/jest": "^29.5.12",
     "@types/react-beautiful-dnd": "^13.1.8"
